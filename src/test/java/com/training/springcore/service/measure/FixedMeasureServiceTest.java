@@ -3,9 +3,7 @@ package com.training.springcore.service.measure;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import com.training.springcore.model.Captor;
-import com.training.springcore.model.Measure;
-import com.training.springcore.model.MeasureStep;
+import com.training.springcore.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ public class FixedMeasureServiceTest {
      * Captor used in tests
      */
 
-    private Captor captor = new Captor("test");
+    private Captor captor = new FixedCaptor("test", new Site("yuio"));
     /**
      * Start instant used in tests
      */

@@ -1,8 +1,6 @@
 package com.training.springcore.service.measure;
 
-import com.training.springcore.model.Captor;
-import com.training.springcore.model.Measure;
-import com.training.springcore.model.MeasureStep;
+import com.training.springcore.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ public class RealMeasureServiceTest {
     /**
      * Captor used in tests
      */
-    private Captor captor = new Captor("test");
+    private Captor captor = new RealCaptor("test", new Site("hjk"));
     /**
      * Start instant used in tests
      */
@@ -64,7 +62,6 @@ public class RealMeasureServiceTest {
 // We should have 24 values one for each hour
         assertThat(measures).hasSize(24);
 // For the moment we have always the same value
-        assertThat(measures).extracting(Measure::getValueInWatt).contains(20_000_000);
 // And we have a value for each hour of the period
         assertThat(measures)
                 .extracting(Measure::getInstant)

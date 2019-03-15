@@ -1,14 +1,15 @@
 package com.training.springcore.service.measure;
 
-import com.training.springcore.model.Captor;
-import com.training.springcore.model.Measure;
-import com.training.springcore.model.MeasureStep;
+import com.training.springcore.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
@@ -26,14 +27,8 @@ public class SimulatedMeasureServiceTest {
     /**
      * Captor used in tests
      */
-    private Captor captor = new Captor("test");
-    /**
-     * Start instant used in tests
-     */
-    Instant start = Instant.parse("2018-09-01T22:00:00Z");
-    /**
-     * End instant used in tests. We define a one day period
-     */
+    private Captor captor = new SimulatedCaptor("test", new Site("fghjk"));
+   Instant start = Instant.parse("2018-09-01T22:00:00Z");
     Instant end = start.plusSeconds(60 * 60 * 24);
 
     @Test

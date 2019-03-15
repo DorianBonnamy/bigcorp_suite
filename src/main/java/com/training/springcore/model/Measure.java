@@ -1,6 +1,8 @@
 package com.training.springcore.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.Optional;
@@ -10,15 +12,23 @@ public class Measure {
 
     @Id
     @GeneratedValue
+
     private Long id;
 
     @Column(nullable=false)
-    private java.time.Instant instant; //instant au format UTC  où la date a été lue
+    @NotNull
+    @Past
+    private Instant instant; //instant au format UTC  où la date a été lue
+
     @Column(nullable=false)
+    @NotNull
     private Integer valueInWatt; //value en watt
 
     @ManyToOne(optional = false)
     private Captor captor;
+
+    @Version
+    private int version;
 
     public Measure(){
 
@@ -67,6 +77,14 @@ public class Measure {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     @Override

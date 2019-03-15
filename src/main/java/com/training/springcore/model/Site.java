@@ -1,9 +1,7 @@
 package com.training.springcore.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -14,12 +12,19 @@ public class Site {
      * Site id
      */
     @Id
-    private String id = UUID.randomUUID().toString();
+    private String id;
+
+    @PrePersist
+    public void generateId() {
+        this.id = UUID.randomUUID().toString();
+    }
 
     /**
      * Site name
      */
     @Column(nullable =  false)
+    @NotNull
+    @Size(min = 3, max = 100)
     private String name;
 
     /**
@@ -28,7 +33,11 @@ public class Site {
     @OneToMany(mappedBy = "site")
     private Set<Captor> captors;
 
-    @Deprecated
+    @Version
+    private int version;
+
+
+
     public Site() {
         // Use for serializer or deserializer
     }
@@ -72,6 +81,15 @@ public class Site {
         Site site = (Site) o;
         return Objects.equals(name, site.name);
     }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
 
     @Override
     public int hashCode() {

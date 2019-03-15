@@ -1,10 +1,13 @@
 package com.training.springcore.repository;
 
 import com.training.springcore.model.Site;
-import org.springframework.stereotype.Service;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public interface SiteDao extends CrudDao<Site, String> {
+import java.util.Optional;
 
-    void ForeignKeyCaptors(Site site);
+@Repository
+@Transactional
+public interface SiteDao extends JpaRepository<Site, String> {
 }

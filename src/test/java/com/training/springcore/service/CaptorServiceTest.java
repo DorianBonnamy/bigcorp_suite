@@ -16,34 +16,4 @@ import java.util.Set;
 
 public class CaptorServiceTest {
 
-    @Mock
-    private CaptorDao captorDao;
-    @InjectMocks
-    private CaptorServiceImpl captorService;
-    @Before
-    public void init(){
-        MockitoAnnotations.initMocks(this);
-    }
-    @Test
-    public void findBySiteShouldReturnNullWhenIdIsNull() {
-// Initialisation
-        String siteId = null;
-// Appel du SUT
-        Set<Captor> captors = captorService.findBySite(siteId);
-// Vérification
-        Assertions.assertThat(captors).isEmpty();
-    }
-    @Test
-    public void findBySite() {
-// Initialisation
-        String siteId = "siteId";
-        Captor expectedCaptor = new Captor("Capteur A", new Site("Florange"));
-        Mockito.when(captorDao.findBySiteId(siteId)).thenReturn(Arrays.asList(expectedCaptor))
-        ;
-// Appel du SUT
-        Set<Captor> captors = captorService.findBySite(siteId);
-// Vérification
-        Assertions.assertThat(captors).hasSize(1);
-        Assertions.assertThat(captors).extracting(Captor::getName).contains("Capteur A");
-    }
 }

@@ -3,30 +3,34 @@ package com.training.springcore.model;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class Captor {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Captor {
     /**
      * Captor id
      */
     @Id
-    private String id = UUID.randomUUID().toString();
+    private String id;
+
+    @PrePersist
+    public void generateId() {
+        this.id = UUID.randomUUID().toString();
+    }
 
     /**
      * Captor name
      */
     @Column(nullable=false)
+    @NotNull
+    @Size(min = 3, max = 100)
     private String name;
-
-    /**
-     * Captor PowerSource powerSource;
-     * */
-
-    @Column(nullable=false)
-    @Enumerated(EnumType.STRING)
-    private PowerSource powerSource;
 
     /**
      * Captor Site site
@@ -35,10 +39,13 @@ public class Captor {
     @ManyToOne(optional = false)
     private Site site;
 
-    @Column
-    Integer defaultPowerInWatt;
+    @Version
+    private int version;
 
-    @Deprecated
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private PowerSource powerSource;
+
     public Captor() {
         // Use for serializer or deserializer
     }
@@ -49,15 +56,16 @@ public class Captor {
      */
     public Captor(String name) {
         this.name = name;
-        this.powerSource = PowerSource.FIXED;
     }
 
-    public Captor(String name,Site site) {
+    public Captor(String name,Site site, PowerSource powerSource) {
         this.name = name;
-        this.powerSource = PowerSource.FIXED;
         this.site = site;
+        this.powerSource = powerSource;
     }
 
+    public Captor(String name, Site site, int i) {
+    }
 
     public String getId() {
         return id;
@@ -83,14 +91,6 @@ public class Captor {
                 '}';
     }
 
-    public PowerSource getPowerSource() {
-        return powerSource;
-    }
-
-    public void setPowerSource(PowerSource powerSource) {
-        this.powerSource = powerSource;
-    }
-
     public Site getSite() {
         return site;
     }
@@ -104,28 +104,20 @@ public class Captor {
         site.setId(id);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Captor captor = (Captor) o;
-        return Objects.equals(id, captor.id) &&
-                Objects.equals(name, captor.name) &&
-                powerSource == captor.powerSource &&
-                Objects.equals(site, captor.site);
+    public int getVersion() {
+        return version;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, powerSource, site);
+    public void setVersion(int version) {
+        this.version = version;
     }
 
-
-    public Integer getDefaultPowerInWatt() {
-        return defaultPowerInWatt;
+    public PowerSource getPowerSource() {
+        return powerSource;
     }
 
-    public void setDefaultPowerInWatt(Integer defaultPowerInWatt) {
-        this.defaultPowerInWatt = defaultPowerInWatt;
+    public void setPowerSource(PowerSource powerSource) {
+        this.powerSource = powerSource;
     }
+
 }
