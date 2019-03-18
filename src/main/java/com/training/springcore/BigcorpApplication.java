@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 @EnableConfigurationProperties
-public class BigcorpApplication {
+public class 	BigcorpApplication {
 	public static void main(String[] args) {
 		Logger logger = LoggerFactory.getLogger(BigcorpApplication.class);
 		ApplicationContext context = SpringApplication.run(BigcorpApplication.class, args);

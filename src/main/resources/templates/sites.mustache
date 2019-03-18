@@ -7,6 +7,7 @@
 
 <body>
     {{> partial-header}}
+    <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}">
     <div class="container">
         <h1>Liste des sites</h1>
         <table class="table">
@@ -29,6 +30,7 @@
                         </ul>
                     </td>
                     <td><a class="btn btn-primary" href="/sites/{{id}}" role="button">Editer</a>
+                    <a class="btn btn-primary" href="/sites/{{id}}/measures" role="button">Mesures</a>
                     <form method="post" action="/sites/{{id}}/delete" >
                         <button class="btn btn-danger" type="submit">Supprimer</button>
                     </form>

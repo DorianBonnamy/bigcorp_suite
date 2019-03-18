@@ -20,6 +20,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-mustache')
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('com.h2database:h2')
+	compile('org.springframework.boot:spring-boot-starter-security')
 
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

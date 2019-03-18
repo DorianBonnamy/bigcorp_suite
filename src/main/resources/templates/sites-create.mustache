@@ -7,6 +7,7 @@
 
 <body>
     {{> partial-header}}
+    <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}">
     <div class="container">
         {{#site.id}}<h1>Modification site</h1>{{/site.id}}
         {{^site.id}}<h1>Création site</h1>{{/site.id}}
@@ -25,8 +26,7 @@
             <div class="form-group">
                 <h2>Liste des capteurs</h2>
                 <div>
-                    <a class="btn btn-primary" href="/sites/{{site.id}}/captors/FIXED/create">Nouveau capteur fixe</a>
-                    <a class="btn btn-primary" href="/sites/{{site.id}}/captors/SIMULATED/create">Nouveau capteur simulé</a>
+                    <a class="btn btn-primary" href="/sites/{{site.id}}/captors/create">Nouveau capteur</a>
                 </div>
                 <hr>
                 <fieldset>
@@ -42,7 +42,7 @@
                                 <td>{{name}}</td>
                                 <td>{{powerSource}}</td>
                                 <td><form method="post" action="/sites/{{site.id}}/captors/{{id}}" >
-                                        <button class="btn btn-danger" type="submit">Editer</button>
+                                        <button class="btn btn-primary" type="submit">Editer</button>
                                     </form>
                                     <form method="post" action="/sites/{{site.id}}/captors/{{id}}/delete" >
                                         <button class="btn btn-danger" type="submit">Supprimer</button>

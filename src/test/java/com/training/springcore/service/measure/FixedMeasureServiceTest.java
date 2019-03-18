@@ -1,18 +1,17 @@
 package com.training.springcore.service.measure;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 import com.training.springcore.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.Instant;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,7 +24,7 @@ public class FixedMeasureServiceTest {
      * Captor used in tests
      */
 
-    private Captor captor = new FixedCaptor("test", new Site("yuio"));
+    private FixedCaptor captor = new FixedCaptor("test", new Site("yuio"),100);
     /**
      * Start instant used in tests
      */

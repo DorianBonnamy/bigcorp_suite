@@ -115,7 +115,7 @@ public class CaptorDaoImplTest {
                 .withIgnoreNullValues();
         Site site = new Site("site2");
         entityManager.persist(site);
-        Captor captor = new FixedCaptor("lienn", site);
+        FixedCaptor captor = new FixedCaptor("lienn", site,100);
         List<Captor> captors = captorDao.findAll(Example.of(captor, matcher));
         Assertions.assertThat(captors)
                 .hasSize(1)
